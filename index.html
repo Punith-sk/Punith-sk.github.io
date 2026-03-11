@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Punith S. Kalyankar | Data & Business Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy:    #0A0F1E;
+    --navy2:   #111827;
+    --panel:   #151D2E;
+    --border:  #1E2D45;
+    --blue:    #2563EB;
+    --blue2:   #3B82F6;
+    --cyan:    #06B6D4;
+    --gold:    #F59E0B;
+    --text:    #E2E8F0;
+    --muted:   #94A3B8;
+    --light:   #CBD5E1;
+    --white:   #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: .4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 4rem;
+    background: rgba(10,15,30,0.85);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+    transition: padding .3s;
+  }
+  .nav-logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .9rem; color: var(--cyan); letter-spacing: .08em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: .85rem; font-weight: 500; letter-spacing: .04em;
+    text-transform: uppercase; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 4rem;
+    position: relative; overflow: hidden;
+  }
+
+  /* grid lines background */
+  #hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(37,99,235,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(37,99,235,.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .8rem; color: var(--cyan); letter-spacing: .15em;
+    text-transform: uppercase; margin-bottom: 1.2rem;
+    opacity: 0; animation: fadeUp .6s .2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    line-height: 1.05; color: var(--white);
+    opacity: 0; animation: fadeUp .7s .35s forwards;
+  }
+  .hero-name span { color: var(--blue2); font-style: italic; }
+
+  .hero-sub {
+    max-width: 560px; margin-top: 1.5rem;
+    color: var(--light); font-size: 1.05rem; font-weight: 300;
+    opacity: 0; animation: fadeUp .7s .5s forwards;
+  }
+
+  .hero-cta {
+    display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp .7s .65s forwards;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .8rem 1.8rem; border-radius: 4px;
+    font-size: .9rem; font-weight: 500; cursor: pointer;
+    text-decoration: none; transition: all .2s; border: none;
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+  .btn-primary { background: var(--blue); color: #fff; }
+  .btn-primary:hover { background: var(--blue2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,.35); }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--blue2); color: var(--blue2); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    opacity: 0; animation: fadeUp .7s .8s forwards;
+  }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem; color: var(--white);
+  }
+  .stat-num span { color: var(--cyan); }
+  .stat-label { font-size: .78rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-top: .2rem; }
+
+  /* floating accent orbs */
+  .orb {
+    position: absolute; border-radius: 50%;
+    filter: blur(80px); pointer-events: none; z-index: -1;
+  }
+  .orb-1 { width: 500px; height: 500px; background: rgba(37,99,235,.12); top: -100px; right: -100px; }
+  .orb-2 { width: 300px; height: 300px; background: rgba(6,182,212,.08); bottom: 100px; left: 5%; animation: float 8s ease-in-out infinite; }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 4rem; position: relative; }
+  section:nth-child(even) { background: var(--navy2); }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .75rem; color: var(--cyan); letter-spacing: .2em;
+    text-transform: uppercase; margin-bottom: .8rem;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--white); margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .section-line {
+    width: 48px; height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    margin-bottom: 3rem; border-radius: 2px;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+
+  .about-text p { color: var(--light); margin-bottom: 1.2rem; font-weight: 300; line-height: 1.85; }
+  .about-text p strong { color: var(--white); font-weight: 500; }
+
+  .about-cards { display: flex; flex-direction: column; gap: 1rem; }
+  .about-card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 1.4rem 1.6rem;
+    display: flex; align-items: flex-start; gap: 1rem;
+    transition: border-color .2s, transform .2s;
+  }
+  .about-card:hover { border-color: var(--blue); transform: translateX(4px); }
+  .about-card-icon {
+    font-size: 1.4rem; margin-top: .1rem; flex-shrink: 0;
+  }
+  .about-card-title { font-weight: 600; color: var(--white); font-size: .95rem; }
+  .about-card-sub { font-size: .82rem; color: var(--muted); margin-top: .2rem; }
+
+  /* ── SKILLS ── */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+  .skill-group {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.8rem;
+    transition: border-color .2s, transform .2s;
+  }
+  .skill-group:hover { border-color: var(--blue); transform: translateY(-3px); }
+  .skill-group-title {
+    font-size: .8rem; font-weight: 600; color: var(--cyan);
+    text-transform: uppercase; letter-spacing: .12em; margin-bottom: 1.2rem;
+  }
+  .skill-item { margin-bottom: 1rem; }
+  .skill-row { display: flex; justify-content: space-between; margin-bottom: .35rem; }
+  .skill-name { font-size: .88rem; color: var(--text); }
+  .skill-pct { font-family: 'IBM Plex Mono', monospace; font-size: .75rem; color: var(--muted); }
+  .skill-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .skill-fill {
+    height: 100%; border-radius: 2px;
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 1s cubic-bezier(.4,0,.2,1);
+  }
+  .skill-fill.animated { transform: scaleX(1); }
+
+  /* ── EXPERIENCE ── */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 8px;
+    width: 2px; bottom: 0;
+    background: linear-gradient(180deg, var(--blue), transparent);
+  }
+  .timeline-item { position: relative; margin-bottom: 3rem; }
+  .timeline-dot {
+    position: absolute; left: -2.4rem; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--blue); border: 2px solid var(--navy);
+    box-shadow: 0 0 0 4px rgba(37,99,235,.2);
+  }
+  .timeline-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .75rem; color: var(--cyan); margin-bottom: .5rem; letter-spacing: .05em;
+  }
+  .timeline-title { font-size: 1.1rem; font-weight: 600; color: var(--white); }
+  .timeline-company { font-size: .9rem; color: var(--muted); margin-bottom: .8rem; }
+  .timeline-list { list-style: none; }
+  .timeline-list li {
+    font-size: .9rem; color: var(--light); font-weight: 300;
+    padding: .3rem 0 .3rem 1.2rem; position: relative;
+  }
+  .timeline-list li::before {
+    content: '›'; position: absolute; left: 0;
+    color: var(--blue2); font-weight: 700;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .project-card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 10px; padding: 2rem; position: relative;
+    overflow: hidden; transition: border-color .25s, transform .25s;
+    display: flex; flex-direction: column;
+  }
+  .project-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .3s;
+  }
+  .project-card:hover { border-color: var(--blue); transform: translateY(-4px); }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .7rem; color: var(--muted); margin-bottom: 1rem;
+    letter-spacing: .1em;
+  }
+  .project-title { font-weight: 600; color: var(--white); font-size: 1rem; margin-bottom: .6rem; }
+  .project-desc { font-size: .88rem; color: var(--light); font-weight: 300; line-height: 1.7; flex: 1; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.4rem; }
+  .tag {
+    font-size: .72rem; font-weight: 500; letter-spacing: .06em;
+    padding: .25rem .7rem; border-radius: 3px;
+    background: rgba(37,99,235,.15); color: var(--blue2);
+    border: 1px solid rgba(37,99,235,.25);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .project-link {
+    margin-top: 1.2rem; font-size: .82rem; color: var(--cyan);
+    text-decoration: none; display: inline-flex; align-items: center; gap: .3rem;
+    transition: gap .2s;
+  }
+  .project-link:hover { gap: .6rem; }
+
+  /* ── CERTIFICATIONS ── */
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+  .cert-card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 1.4rem 1.6rem;
+    display: flex; align-items: center; gap: 1rem;
+    transition: border-color .2s, transform .2s;
+  }
+  .cert-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .cert-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .cert-name { font-size: .88rem; font-weight: 500; color: var(--text); }
+  .cert-issuer { font-size: .75rem; color: var(--muted); margin-top: .2rem; }
+
+  /* ── CONTACT ── */
+  .contact-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .contact-info p { color: var(--light); font-weight: 300; margin-bottom: 2rem; }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    color: var(--text); text-decoration: none; font-size: .9rem;
+    padding: .9rem 1.2rem; border: 1px solid var(--border);
+    border-radius: 6px; background: var(--panel);
+    transition: border-color .2s, transform .2s;
+  }
+  .contact-link:hover { border-color: var(--blue2); transform: translateX(4px); }
+  .contact-link-icon { font-size: 1.1rem; }
+
+  /* contact form */
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: .4rem; }
+  .form-group label { font-size: .8rem; color: var(--muted); font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
+  .form-group input, .form-group textarea {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 6px; padding: .85rem 1rem;
+    color: var(--text); font-family: 'IBM Plex Sans', sans-serif;
+    font-size: .9rem; transition: border-color .2s; outline: none; resize: vertical;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--blue); }
+  .form-group textarea { min-height: 130px; }
+  .form-note { font-size: .78rem; color: var(--muted); margin-top: .3rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #060A14; border-top: 1px solid var(--border);
+    padding: 2.5rem 4rem; text-align: center;
+    font-size: .82rem; color: var(--muted);
+  }
+  footer span { color: var(--blue2); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-20px); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    #hero { padding: 0 1.5rem; }
+    .about-grid, .contact-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero-stats { gap: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">PSK //</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="Punith_DA_BA_Resume.docx" download class="btn btn-primary" style="padding:.6rem 1.2rem;font-size:.82rem;">
+    ↓ Resume
+  </a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <p class="hero-tag">// Data Analyst · Business Intelligence · Problem Solver</p>
+  <h1 class="hero-name">Punith S.<br><span>Kalyankar</span></h1>
+  <p class="hero-sub">
+    Mechanical Engineer turned Data Analyst — bridging the physical world and business intelligence through SQL, Python, and Power BI. Based in Bengaluru. Immediate joiner.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View My Work →</a>
+    <a href="#contact" class="btn btn-outline">Get In Touch</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">3<span>+</span></div>
+      <div class="stat-label">Tools Mastered</div>
+    </div>
+    <div>
+      <div class="stat-num">50<span>K+</span></div>
+      <div class="stat-label">Records Analyzed</div>
+    </div>
+    <div>
+      <div class="stat-num">8<span>+</span></div>
+      <div class="stat-label">Projects Built</div>
+    </div>
+    <div>
+      <div class="stat-num">8.8</div>
+      <div class="stat-label">B.Tech CGPA</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">01 / About Me</div>
+  <h2 class="section-title">Multidisciplinary<br>Perspective</h2>
+  <div class="section-line"></div>
+
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>I'm <strong>Punith S. Kalyankar</strong>, a Mechanical Engineering graduate from Dayananda Sagar University with a strong interest in data analytics, business intelligence, and technology-driven problem solving.</p>
+      <p>My experience spans engineering, analytics, and business development — giving me a <strong>multidisciplinary perspective</strong> on solving real-world problems that pure data analysts often lack.</p>
+      <p>I work with <strong>Python, SQL, Excel, and Power BI</strong> to analyze data, build dashboards, and create automation tools. I enjoy transforming complex datasets into clear insights that support better decision-making.</p>
+      <p>From working at <strong>Hindustan Aeronautics Limited</strong> in aerospace R&D to developing business intelligence at <strong>Intellipaat</strong>, I bring both engineering rigour and business context to every analysis.</p>
+    </div>
+    <div class="about-cards">
+      <div class="about-card">
+        <div class="about-card-icon">🎓</div>
+        <div>
+          <div class="about-card-title">B.Tech Mechanical Engineering</div>
+          <div class="about-card-sub">Dayananda Sagar University, 2021–2025 · CGPA 8.8/10</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">📊</div>
+        <div>
+          <div class="about-card-title">Data & Business Analyst</div>
+          <div class="about-card-sub">Intellipaat Software Solutions, Bengaluru · Feb 2025 – Present</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">✈️</div>
+        <div>
+          <div class="about-card-title">R&D Intern — Aerospace</div>
+          <div class="about-card-sub">Hindustan Aeronautics Limited (HAL) · Aug–Sep 2024</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">📍</div>
+        <div>
+          <div class="about-card-title">Location & Availability</div>
+          <div class="about-card-sub">Bengaluru, Karnataka · Immediate Joiner</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">02 / Technical Skills</div>
+  <h2 class="section-title">Tools &<br>Technologies</h2>
+  <div class="section-line"></div>
+
+  <div class="skills-grid">
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Analytics & Databases</div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">SQL Server</span><span class="skill-pct">85%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width=".85"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Python (Pandas, NumPy)</span><span class="skill-pct">75%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width=".75"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Data Cleaning & Validation</span><span class="skill-pct">90%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width=".9"></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Visualisation & BI</div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Power BI</span><span class="skill-pct">80%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width=".8"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Excel (Pivot, VLOOKUP)</span><span class="skill-pct">88%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width=".88"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Tableau (Basics)</span><span class="skill-pct">55%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width=".55"></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Business Analysis</div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Requirements (BRD)</span><span class="skill-pct">78%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width=".78"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">KPI Dashboard Design</span><span class="skill-pct">82%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width=".82"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Zoho CRM</span><span class="skill-pct">70%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width=".7"></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Engineering & Domain</div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Manufacturing Processes</span><span class="skill-pct">85%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width=".85"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Process Optimisation</span><span class="skill-pct">75%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width=".75"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Python Automation</span><span class="skill-pct">72%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width=".72"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">03 / Experience</div>
+  <h2 class="section-title">Professional<br>Journey</h2>
+  <div class="section-line"></div>
+
+  <div class="timeline reveal">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">Feb 2025 – Present · Bengaluru, On-site</div>
+      <div class="timeline-title">Data & Business Analyst</div>
+      <div class="timeline-company">Intellipaat Software Solutions</div>
+      <ul class="timeline-list">
+        <li>Analyzed 50,000+ customer records using SQL & Python, producing 15+ actionable insight reports informing strategic decisions across Marketing, Finance, and Operations.</li>
+        <li>Designed 3 Power BI dashboards tracking KPIs across 3 business units — reducing weekly report generation time by 40% (8 hrs → ~5 hrs).</li>
+        <li>Identified that 80% of qualified leads were student-focused; discovered seasonal enrollment patterns enabling targeted campaigns that improved conversions.</li>
+        <li>Drafted Business Requirement Documents (BRDs) for 5+ client projects with 100% first-round accuracy; collaborated with tech teams on CRM feature enhancements.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">Aug 2024 – Sep 2024 · Bengaluru, On-site</div>
+      <div class="timeline-title">R&D Intern — Aerospace Manufacturing</div>
+      <div class="timeline-company">Hindustan Aeronautics Limited (HAL)</div>
+      <ul class="timeline-list">
+        <li>Documented and optimised 5+ R&D operational workflows within an aerospace manufacturing environment, identifying 3 process bottlenecks that reduced operational friction by 15%.</li>
+        <li>Compiled equipment testing data and performance metrics for management reviews; maintained 98% process adherence across multi-departmental projects.</li>
+        <li>Gained direct exposure to aerospace manufacturing documentation standards and engineering data protocols.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">04 / Projects</div>
+  <h2 class="section-title">Work &<br>Projects</h2>
+  <div class="section-line"></div>
+
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT — 01</div>
+      <div class="project-title">Customer Data Analysis Dashboard</div>
+      <div class="project-desc">Built an interactive Power BI dashboard analyzing 150,000+ UK bank customer records. Visualised 12+ KPIs with regional and customer segment filters. Adopted by 4+ departments for weekly strategic decisions.</div>
+      <div class="project-tags"><span class="tag">Power BI</span><span class="tag">SQL</span><span class="tag">Excel</span></div>
+      <a href="https://github.com/Punith-sk" class="project-link" target="_blank">View on GitHub →</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT — 02</div>
+      <div class="project-title">Advanced SQL Subquery Analysis</div>
+      <div class="project-desc">Extracted customer churn patterns and segmentation insights from 50,000+ transaction records using complex subqueries, IN/EXISTS operators, JOINs, and indexing for query performance optimisation.</div>
+      <div class="project-tags"><span class="tag">SQL Server</span><span class="tag">Subqueries</span><span class="tag">Indexing</span></div>
+      <a href="https://github.com/Punith-sk" class="project-link" target="_blank">View on GitHub →</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT — 03</div>
+      <div class="project-title">File Automation Tool (Python)</div>
+      <div class="project-desc">Built a Python-based file management automation tool that organises directories, automates repetitive file operations, and reduces manual effort — demonstrating practical automation for business workflows.</div>
+      <div class="project-tags"><span class="tag">Python</span><span class="tag">Automation</span><span class="tag">OS Module</span></div>
+      <a href="https://github.com/Punith-sk/FileAutomationProject" class="project-link" target="_blank">View on GitHub →</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT — 04</div>
+      <div class="project-title">Dividend & Stock Profit Calculator</div>
+      <div class="project-desc">Python-based financial calculator for computing dividend returns and stock profit/loss. Demonstrates quantitative analytical thinking and practical Python for finance use cases.</div>
+      <div class="project-tags"><span class="tag">Python</span><span class="tag">Finance</span><span class="tag">Analytics</span></div>
+      <a href="https://github.com/Punith-sk/Dividend-Stock-Profit-Calculator" class="project-link" target="_blank">View on GitHub →</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT — 05</div>
+      <div class="project-title">COVID-19 Mortality Dashboard</div>
+      <div class="project-desc">Visualised global COVID-19 case and mortality data in Power BI with executive-level filters for region, date, and severity — designed for non-technical stakeholder consumption and clear decision support.</div>
+      <div class="project-tags"><span class="tag">Power BI</span><span class="tag">Data Viz</span><span class="tag">Public Data</span></div>
+      <a href="https://github.com/Punith-sk" class="project-link" target="_blank">View on GitHub →</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT — 06</div>
+      <div class="project-title">Smart Waste & Agriculture Monitoring (IoT)</div>
+      <div class="project-desc">B.Tech capstone projects integrating sensor data collection, threshold-based alerting, and real-time monitoring — concepts directly applicable to industrial predictive maintenance and OEE tracking.</div>
+      <div class="project-tags"><span class="tag">IoT</span><span class="tag">Sensors</span><span class="tag">Python</span></div>
+      <a href="https://github.com/Punith-sk" class="project-link" target="_blank">View on GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label">05 / Certifications</div>
+  <h2 class="section-title">Learning &<br>Credentials</h2>
+  <div class="section-line"></div>
+  <div class="certs-grid">
+    <div class="cert-card reveal"><div class="cert-icon">🐍</div><div><div class="cert-name">Data Analysis with Python</div><div class="cert-issuer">Great Learning</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">🗄️</div><div><div class="cert-name">Data Analysis with SQL</div><div class="cert-issuer">Great Learning</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">📊</div><div><div class="cert-name">Excel for Data Analysis</div><div class="cert-issuer">Great Learning</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">💰</div><div><div class="cert-name">Business Finance Foundations</div><div class="cert-issuer">LinkedIn Learning</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">🔄</div><div><div class="cert-name">Business Analysis Fundamentals</div><div class="cert-issuer">In Progress</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">🏛️</div><div><div class="cert-name">Organisational Behaviour</div><div class="cert-issuer">NPTEL</div></div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">06 / Contact</div>
+  <h2 class="section-title">Let's<br>Connect</h2>
+  <div class="section-line"></div>
+
+  <div class="contact-wrap">
+    <div class="contact-info reveal">
+      <p>I'm actively looking for Data Analyst, Business Analyst, and Manufacturing Analytics roles in Bengaluru. Open to full-time positions — immediate joiner.</p>
+      <div class="contact-links">
+        <a href="mailto:puniithskalyankar2003@gmail.com" class="contact-link">
+          <span class="contact-link-icon">✉️</span>
+          puniithskalyankar2003@gmail.com
+        </a>
+        <a href="tel:+919148913509" class="contact-link">
+          <span class="contact-link-icon">📞</span>
+          +91 9148913509
+        </a>
+        <a href="https://linkedin.com/in/punith-s-k" class="contact-link" target="_blank">
+          <span class="contact-link-icon">💼</span>
+          linkedin.com/in/punith-s-k
+        </a>
+        <a href="https://github.com/Punith-sk" class="contact-link" target="_blank">
+          <span class="contact-link-icon">💻</span>
+          github.com/Punith-sk
+        </a>
+      </div>
+    </div>
+
+    <form class="contact-form reveal" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" name="name" placeholder="e.g. Ravi Kumar" required/>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="your@email.com" required/>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea name="message" placeholder="Hi Punith, I came across your profile and..." required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send Message →</button>
+      <p class="form-note">⚡ Replace YOUR_FORM_ID with your free Formspree ID to activate this form.</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Built by <span>Punith S. Kalyankar</span> · Bengaluru, India · 2025<br>
+  <span style="font-size:.75rem;color:#475569;">Data Analyst · Business Intelligence · Manufacturing Analytics</span></p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Skill bars animate on scroll
+  const fills = document.querySelectorAll('.skill-fill');
+  const barObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        el.style.width = (parseFloat(el.dataset.width) * 100) + '%';
+        el.classList.add('animated');
+        barObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+  fills.forEach(f => {
+    f.style.width = '0%';
+    barObserver.observe(f);
+  });
+
+  // Nav shrink on scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.padding = window.scrollY > 60 ? '.7rem 4rem' : '1.1rem 4rem';
+  });
+</script>
+</body>
+</html>
